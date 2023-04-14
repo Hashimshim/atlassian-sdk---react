@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2"> 
+  <plugin-info> 
+    <description>${project.description}</description>  
+    <version>${project.version}</version>  
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>  
+    <param name="plugin-icon">images/pluginIcon.png</param>  
+    <param name="plugin-logo">images/pluginLogo.png</param> 
+  </plugin-info>  
+  <!-- add our i18n resource -->  
+  <resource type="i18n" name="i18n" location="jira-react-atlaskit"/>  
+  <!-- add our web resources -->  
+  <web-resource key="jira-react-atlaskit-resources" name="jira-react-atlaskit Web Resources"> 
+    <dependency>com.atlassian.auiplugin:ajs</dependency>  
+    <resource type="soy" name="soyui" location="/templates/servlets.soy"/>  
+    <resource type="download" name="jira-react-atlaskit.css" location="/css/jira-react-atlaskit.css"/>  
+    <resource type="download" name="jira-react-atlaskit.js" location="/js/jira-react-atlaskit.js"/>  
+    <resource type="download" name="images/" location="/images"/>  
+    <context>jira-react-atlaskit</context> 
+  </web-resource>  
+  <servlet name="App Servlet" i18n-name-key="app-servlet.name" key="app-servlet" class="ru.matveev.alexey.atlas.jira.servlet.AppServlet"> 
+    <description key="app-servlet.description">The App Servlet Plugin</description>  
+    <url-pattern>/app</url-pattern> 
+  </servlet>  
+  <web-section name="React Plugin" i18n-name-key="react.name" key="react" location="admin_plugins_menu" weight="1000"> 
+    <description key="react.description">React Plugin</description>  
+    <label key="react.label"/> 
+  </web-section>  
+  <web-item name="from web item" i18n-name-key="app.name" key="app" section="admin_plugins_menu/react" weight="1000"> 
+    <description key="app.description">App</description>  
+    <label key="app.label"/>  
+    <link linkId="configuration-link">/plugins/servlet/app</link> 
+  </web-item>  
+  <ao key="ao-module"> 
+    <description>The module configuring the Active Objects service used by this plugin</description>  
+    <entity>ru.matveev.alexey.atlas.jira.ao.Todo</entity> 
+  </ao>  
+  <rest name="Ao Rest Resource" i18n-name-key="ao-rest-resource.name" key="ao-rest-resource" path="/app" version="1.0"> 
+    <description key="ao-rest-resource.description">The Ao Rest Resource Plugin</description> 
+  </rest>
+</atlassian-plugin>
