@@ -24,11 +24,12 @@ public class TodoServiceImpl implements TodoService
     }
 
     @Override
-    public Todo add(String description)
+    public Todo add(String name, String description, boolean comlete)
     {
         final Todo todo = ao.create(Todo.class);
+        todo.setName(name);
         todo.setDescription(description);
-        todo.setComplete(false);
+        todo.setComplete(comlete);
         todo.save();
         return todo;
     }

@@ -7,7 +7,7 @@ import java.util.List;
 @Transactional
 public interface TodoService
 {
-    Todo add(String description);
+    Todo add(String name, String description, boolean comlete);
 
     List<Todo> all();
 }

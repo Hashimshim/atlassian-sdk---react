@@ -13,6 +13,9 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -32,15 +35,18 @@ public class AoRestResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getTodo()
     {
-       return Response.ok(new AoRestResourceModel( todoService.all().toString())).build();
+        List<TodoRestResourceModel> todos = todoService.all().stream().map(todo ->
+             new TodoRestResourceModel(todo.getName(), todo.getDescription(), todo.isComplete())
+        ).collect(Collectors.toList());
+       return Response.ok(todos).build();
     }
 
     @POST
     @Produces({MediaType.APPLICATION_JSON})
-    public Response createTodo()
+    public Response createTodo(TodoRestResourceModel todo)
     {
 
-        todoService.add("new item");
+        todoService.add(todo.getName(), todo.getDescription(), todo.isComplete());
         return Response.ok(new AoRestResourceModel( "added")).build();
     }
 }

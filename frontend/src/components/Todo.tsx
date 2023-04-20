@@ -2,15 +2,22 @@
 import React, { useEffect, useState } from 'react';
 
 interface IProps {
-    contextPath : string
-  }
-
+  contextPath : string
+}
+interface Todo {
+  name: string
+  description: string
+  complete: boolean
+}
 export default function Todo(props: IProps) {
   const { contextPath } = props;
 
-  const [todo, setTodo] = useState<string>('');
+  const [todos, setTodos] = useState<Todo[]>([]);
   useEffect(() => {
     (async () => {
+        const todo : Todo = {
+            description: "my description from frontend", name: 'my name', complete: true
+        }
       await (
         await fetch(
           `${contextPath}/rest/app/1.0/todo`,
@@ -20,20 +27,20 @@ export default function Todo(props: IProps) {
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ a: 1, b: 'Textual content' }),
+            body: JSON.stringify({ ...todo }),
           },
         )
       ).json();
       const data = await (
         await fetch(`${contextPath}/rest/app/1.0/todo`)
       ).json();
-      setTodo(JSON.stringify(data));
+      setTodos(data);
     })();
   }, [1]);
   return (
     <div>
       TODO
-      {JSON.stringify(todo)}
+        {todos.map((todo) => (<><p>name: {todo.name}</p><p>description: {todo.description}</p><p>complete: {todo.complete.toString()}</p></>))}
     </div>
   );
 }

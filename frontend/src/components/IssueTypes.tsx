@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react';
 
 interface IProps {
-    contextPath : string
-  }
+  contextPath : string
+}
 
 interface IssueType {
   avatarId: number
- description: string
-iconUrl:string
-id:string
-name: string
-self:string
-subtask:boolean
+  description: string
+  iconUrl:string
+  id:string
+  name: string
+  self:string
+  subtask:boolean
 }
 
 export default function IssueTypes(props : IProps) {
@@ -29,7 +29,7 @@ export default function IssueTypes(props : IProps) {
   }, [1]);
   return (
     <div>
-      Issue Types
+      Issue Types:
       {JSON.stringify(itemTypes)}
     </div>
   );
