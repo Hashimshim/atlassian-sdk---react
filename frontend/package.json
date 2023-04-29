@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@atlaskit/button": "^16.6.0",
+    "@atlaskit/dynamic-table": "^14.8.16",
+    "@atlaskit/form": "^8.9.1",
+    "@atlaskit/modal-dialog": "^12.4.12",
+    "@atlaskit/textfield": "^5.3.6",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0"
   },
   "scripts": {
     "build": "webpack --mode production",
@@ -29,27 +34,26 @@
   "devDependencies": {
     "@babel/core": "^7.21.4",
     "@babel/preset-env": "^7.21.4",
-    "@babel/preset-react": "^7.18.6",
     "@babel/preset-flow": "^7.21.4",
-    "atlassian-webresource-webpack-plugin": "^5.2.11",
-    "babel-loader": "^9.1.2",
-    "webpack": "^5.79.0",
-    "webpack-cli": "^5.0.1",
-    "typescript": "^4.9.5",
+    "@babel/preset-react": "^7.18.6",
     "@babel/preset-typescript": "^7.21.4",
-    "fsevents": "^2.3.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.1",
     "@typescript-eslint/eslint-plugin": "^5.58.0",
     "@typescript-eslint/parser": "^5.58.0",
+    "atlassian-webresource-webpack-plugin": "^5.2.11",
+    "babel-loader": "^9.1.2",
     "eslint": "^8.38.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^14.0.0",
-    "@testing-library/user-event": "^14.4.3",
+    "fsevents": "^2.3.2",
+    "react-scripts": "^5.0.1",
     "ts-loader": "^9.4.2",
-    "react-scripts": "^5.0.1"
+    "typescript": "^4.9.5",
+    "webpack": "^5.79.0",
+    "webpack-cli": "^5.0.1"
   }
 }

@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-use-before-define
 import React from 'react';
 import * as ReactDOM from 'react-dom';
-import IssueTypes from './components/IssueTypes';
-import Todo from './components/Todo';
+import TableDataViewer from './components/TableDataViewer';
+import AddTodoView from './components/add-todo/AddTodoView';
 
 interface IProps {
   contextPath : string
@@ -12,8 +12,8 @@ export default function App(props : IProps) {
   const { contextPath } = props;
   return (
     <div>
-      <IssueTypes contextPath={contextPath} />
-      <Todo contextPath={contextPath} />
+      <AddTodoView contextPath={contextPath} />
+      <TableDataViewer contextPath={contextPath} />
     </div>
   );
 }

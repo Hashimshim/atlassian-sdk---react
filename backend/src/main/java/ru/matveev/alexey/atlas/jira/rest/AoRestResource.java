@@ -33,7 +33,7 @@ public class AoRestResource {
     }
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public Response getTodo()
+    public Response getTodos()
     {
         List<TodoRestResourceModel> todos = todoService.all().stream().map(todo ->
              new TodoRestResourceModel(todo.getName(), todo.getDescription(), todo.isComplete())
