@@ -35,7 +35,7 @@ public class AoRestResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getTodos()
     {
-        List<Todo> filtered = todoService.notLikeFilter();
+        //List<Todo> filtered = todoService.notLikeFilter();
         List<TodoRestResourceModel> todos = todoService.all().stream().map(todo ->
              new TodoRestResourceModel(todo.getID(),todo.getName(), todo.getDescription(), todo.isComplete())
         ).collect(Collectors.toList());
