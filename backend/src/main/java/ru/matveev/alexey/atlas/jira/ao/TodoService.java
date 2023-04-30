@@ -13,5 +13,5 @@ public interface TodoService
     boolean delete (int id);
     List<Todo> all();
 
-    List<Todo> likeFilter();
+    List<Todo> notLikeFilter();
 }

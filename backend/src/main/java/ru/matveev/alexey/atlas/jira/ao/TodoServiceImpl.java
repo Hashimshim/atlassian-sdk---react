@@ -65,7 +65,11 @@ public class TodoServiceImpl implements TodoService
     }
 
     @Override
-    public List<Todo> likeFilter () {
-        return newArrayList(ao.find(Todo.class, Query.select().where("description NOT LIKE ?", "%asd%" )));
+    public List<Todo> notLikeFilter () {
+        try {
+            return newArrayList(ao.find(Todo.class, Query.select().where("description NOT LIKE ?", "%asd%" )));
+        } catch (UncheckedExecutionException e) {
+            return new ArrayList<>();
+        }
     }
 }
