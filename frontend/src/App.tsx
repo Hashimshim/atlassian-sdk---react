@@ -10,9 +10,7 @@ interface IProps {
 export default function App(props : IProps) {
   const { contextPath } = props;
   return (
-    <div>
-      <TableDataViewer contextPath={contextPath} />
-    </div>
+    <TableDataViewer contextPath={contextPath} />
   );
 }
 
