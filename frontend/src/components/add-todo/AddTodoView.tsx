@@ -4,14 +4,18 @@ import Button from '@atlaskit/button';
 import AddTodoModal from './AddTodoModal';
 
 interface IProps {
-    contextPath : string
+    contextPath : string,
+    reloadTableData : () => void
 }
 export default function AddTodoView(props : IProps) {
-  const { contextPath } = props;
+  const { contextPath, reloadTableData } = props;
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const closeModal = () => {
+  const closeModal = (reload : boolean = false) => {
     setIsModalOpen(false);
+    if (reload) {
+      reloadTableData();
+    }
   };
 
   const onModalOpen = () => {
@@ -24,6 +28,7 @@ export default function AddTodoView(props : IProps) {
         isOpen={isModalOpen}
         closeModal={closeModal}
         contextPath={contextPath}
+        todo={undefined}
       />
     </>
   );

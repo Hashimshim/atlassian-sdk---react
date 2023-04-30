@@ -4,9 +4,11 @@
   "private": true,
   "dependencies": {
     "@atlaskit/button": "^16.6.0",
+    "@atlaskit/dropdown-menu": "^11.7.3",
     "@atlaskit/dynamic-table": "^14.8.16",
     "@atlaskit/form": "^8.9.1",
     "@atlaskit/modal-dialog": "^12.4.12",
+    "@atlaskit/radio": "^5.4.9",
     "@atlaskit/textfield": "^5.3.6",
     "react": "^16.14.0",
     "react-dom": "^16.14.0"

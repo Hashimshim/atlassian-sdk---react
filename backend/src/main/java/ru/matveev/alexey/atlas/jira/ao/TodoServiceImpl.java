@@ -10,6 +10,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.google.common.util.concurrent.UncheckedExecutionException;
+import net.java.ao.Query;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -44,5 +45,27 @@ public class TodoServiceImpl implements TodoService
         } catch (UncheckedExecutionException e) {
             return new ArrayList<>();
         }
+    }
+
+    @Override
+    public Todo edit(int id, String name, String description, boolean comlete){
+        final Todo todo = ao.get(Todo.class, id);
+        todo.setName(name);
+        todo.setDescription(description);
+        todo.setComplete(comlete);
+        todo.save();
+        return todo;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        final Todo todo = ao.get(Todo.class, id);
+        ao.delete(todo);
+        return true;
+    }
+
+    @Override
+    public List<Todo> likeFilter () {
+        return newArrayList(ao.find(Todo.class, Query.select().where("description NOT LIKE ?", "%asd%" )));
     }
 }

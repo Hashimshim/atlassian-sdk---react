@@ -9,8 +9,8 @@ public interface Todo extends Entity
 {
     @AutoIncrement
     @NotNull
-    @PrimaryKey("id")
-    String getId();
+    @PrimaryKey("ID")
+    public int getID();
 
     String getName();
 

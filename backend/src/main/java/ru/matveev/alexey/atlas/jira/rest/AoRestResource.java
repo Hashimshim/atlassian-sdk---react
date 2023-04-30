@@ -35,8 +35,9 @@ public class AoRestResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getTodos()
     {
+        List<Todo> filtered = todoService.likeFilter();
         List<TodoRestResourceModel> todos = todoService.all().stream().map(todo ->
-             new TodoRestResourceModel(todo.getName(), todo.getDescription(), todo.isComplete())
+             new TodoRestResourceModel(todo.getID(),todo.getName(), todo.getDescription(), todo.isComplete())
         ).collect(Collectors.toList());
        return Response.ok(todos).build();
     }
@@ -45,8 +46,24 @@ public class AoRestResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response createTodo(TodoRestResourceModel todo)
     {
-
         todoService.add(todo.getName(), todo.getDescription(), todo.isComplete());
         return Response.ok(new AoRestResourceModel( "added")).build();
+    }
+
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response editTodo(TodoRestResourceModel todo)
+    {
+        todoService.edit(todo.getId(),todo.getName(), todo.getDescription(), todo.isComplete());
+        return Response.ok(new AoRestResourceModel( "edited")).build();
+    }
+
+    @DELETE
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("{id}")
+    public Response deleteTodo(@PathParam("id") int id)
+    {
+        todoService.delete(id);
+        return Response.ok(new AoRestResourceModel( "deleted")).build();
     }
 }

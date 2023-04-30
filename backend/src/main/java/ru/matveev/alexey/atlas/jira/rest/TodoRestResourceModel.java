@@ -8,6 +8,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class TodoRestResourceModel {
 
+    @XmlElement(name = "id")
+    private Integer id;
+
     @XmlElement(name = "name")
     private String name;
 
@@ -20,7 +23,8 @@ public class TodoRestResourceModel {
     public TodoRestResourceModel() {
     }
 
-    public TodoRestResourceModel(String name, String description, boolean complete) {
+    public TodoRestResourceModel(Integer id, String name, String description, boolean complete) {
+        this.id = id;
         this.name = name;
         this. description = description;
         this.complete = complete;
@@ -48,6 +52,14 @@ public class TodoRestResourceModel {
 
     public void setComplete(boolean complete) {
         this.complete = complete;
+    }
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId (Integer id) {
+        this.id = id;
     }
 
 }

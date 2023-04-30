@@ -2,7 +2,6 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom';
 import TableDataViewer from './components/TableDataViewer';
-import AddTodoView from './components/add-todo/AddTodoView';
 
 interface IProps {
   contextPath : string
@@ -12,7 +11,6 @@ export default function App(props : IProps) {
   const { contextPath } = props;
   return (
     <div>
-      <AddTodoView contextPath={contextPath} />
       <TableDataViewer contextPath={contextPath} />
     </div>
   );

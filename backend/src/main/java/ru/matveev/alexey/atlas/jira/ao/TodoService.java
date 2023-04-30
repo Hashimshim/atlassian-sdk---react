@@ -9,5 +9,9 @@ public interface TodoService
 {
     Todo add(String name, String description, boolean comlete);
 
+    Todo edit(int id, String name, String description, boolean comlete);
+    boolean delete (int id);
     List<Todo> all();
+
+    List<Todo> likeFilter();
 }
