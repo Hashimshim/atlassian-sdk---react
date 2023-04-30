@@ -43,7 +43,7 @@ export default function AddTodoModal(props : IProps) {
       description: data.description,
       complete: data.complete === 'true',
     };
-    if (todo.id === undefined) {
+    if (todo === undefined) {
       await addTodoToDB(newTodo, contextPath);
     } else {
       await editTodoInDB(newTodo, contextPath);
