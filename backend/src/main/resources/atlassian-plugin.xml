@@ -12,8 +12,7 @@
   <resource type="i18n" name="i18n" location="jira-react-atlaskit"/>  
   <!-- add our web resources -->  
   <web-resource key="jira-react-atlaskit-resources" name="jira-react-atlaskit Web Resources"> 
-    <dependency>com.atlassian.auiplugin:ajs</dependency>  
-    <resource type="soy" name="soyui" location="/templates/servlets.soy"/>  
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
     <resource type="download" name="jira-react-atlaskit.css" location="/css/jira-react-atlaskit.css"/>  
     <resource type="download" name="jira-react-atlaskit.js" location="/js/jira-react-atlaskit.js"/>  
     <resource type="download" name="images/" location="/images"/>  

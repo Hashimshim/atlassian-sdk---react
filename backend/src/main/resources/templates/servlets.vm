@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title>App</title>
+    <content tag="selectedWebItem">app</content>
+    <meta name="decorator" content="atl.admin"/>
+    $webResourceManager.requireResourcesForContext("app")
+</head>
+<body>
+<div id="maincontainer">
+    <div id="container">
+    </div>
+</div>
+<div class="field-group hidden">
+    <input class="text" type="text" id="contextPath" name="contextPath" value="$!{contextPath}">
+</div>
+</body>
+</html>

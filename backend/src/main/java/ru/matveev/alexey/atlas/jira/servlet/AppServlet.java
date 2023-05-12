@@ -8,7 +8,7 @@ import electric.server.http.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.matveev.alexey.atlas.jira.service.ResourceService;
-
+import com.atlassian.templaterenderer.TemplateRenderer;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,46 +22,19 @@ public class AppServlet extends HttpServlet{
     private static final Logger log = LoggerFactory.getLogger(AppServlet.class);
     private final ResourceService resourceService;
     private final SoyTemplateRenderer soyTemplateRenderer;
+    private final TemplateRenderer templateRenderer;
 
-    public AppServlet(@ComponentImport  SoyTemplateRenderer soyTemplateRenderer, ResourceService resourceService) {
+    public AppServlet(@ComponentImport  SoyTemplateRenderer soyTemplateRenderer, @ComponentImport TemplateRenderer templateRenderer,  ResourceService resourceService) {
         this.resourceService = resourceService;
         this.soyTemplateRenderer = soyTemplateRenderer;
+        this.templateRenderer = templateRenderer;
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    {
-        String pluginKey = this.resourceService.getProperty("atlassian.plugin.key");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Map<String, Object> map = new HashMap<>();
         map.put("contextPath", req.getContextPath());
-
-        String html = soyTemplateRenderer.render(pluginKey + ":jira-react-atlaskit-resources", "servlet.ui.app", map);
-
-        resp.setContentType("text/html");
-        resp.getWriter().write(html);
-        resp.getWriter().close();    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        StringBuffer jb = new StringBuffer();
-        String line = null;
-        try {
-            BufferedReader reader = req.getReader();
-            while ((line = reader.readLine()) != null)
-                jb.append(line);
-        } catch (Exception e) { /*report an error*/ }
-        log.info(String.format("Post Data: %s", jb.toString()));
-
-        String pluginKey = this.resourceService.getProperty("atlassian.plugin.key");
-        Map<String, Object> map = new HashMap<>();
-        map.put("contextPath", req.getContextPath());
-
-        String html = soyTemplateRenderer.render(pluginKey + ":jira-react-atlaskit-resources", "servlet.ui.app", map);
-
-        resp.setContentType("text/html");
-        resp.getWriter().write(html);
-        resp.getWriter().close();
+        resp.setContentType("text/html;charset=UTF-8");
+        templateRenderer.render("/templates/servlets.vm", map, resp.getWriter());
     }
-
-
 }
