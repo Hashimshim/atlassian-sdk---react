@@ -59,7 +59,7 @@ export default function AddTodoModal(props : IProps) {
           {({ formProps, submitting }) => (
             <form {...formProps}>
               <ModalHeader>
-                <ModalTitle>Create a user</ModalTitle>
+                <ModalTitle>Create a user 666</ModalTitle>
               </ModalHeader>
               <ModalBody>
                 <IdField value={todo?.id} />

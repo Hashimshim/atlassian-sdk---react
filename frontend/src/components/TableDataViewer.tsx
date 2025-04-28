@@ -106,7 +106,7 @@ export default function TableDataViewer(props : IProps) {
                   appearance="subtle-link"
                   onClick={() => editTodo(todo)}
                 >
-                  Edit
+                  Edit9
                 </Button>
               </DropdownItem>
               <DropdownItem>
