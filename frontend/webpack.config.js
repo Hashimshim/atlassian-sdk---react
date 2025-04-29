@@ -26,6 +26,7 @@ module.exports = {
         app: ['app'],
       },
       watch: true,
+      watchPrepare: true,
       xmlDescriptors: path.resolve('../backend/src/main/resources', 'META-INF', 'plugin-descriptors', 'wr-defs.xml'),
     }),
   ],
