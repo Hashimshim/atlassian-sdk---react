@@ -1,19 +1,15 @@
-package ru.matveev.alexey.atlas.jira.servlet;
+package com.jaanga.jira.todo.servlet;
 
-import com.atlassian.jira.util.json.JSONException;
-import com.atlassian.jira.util.json.JSONObject;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.soy.renderer.SoyTemplateRenderer;
-import electric.server.http.HTTP;
+import com.jaanga.jira.todo.service.ResourceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.matveev.alexey.atlas.jira.service.ResourceService;
 import com.atlassian.templaterenderer.TemplateRenderer;
 import javax.servlet.*;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

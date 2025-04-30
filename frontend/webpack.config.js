@@ -20,7 +20,7 @@ module.exports = {
   },
   plugins: [
     new WrmPlugin({
-      pluginKey: 'ru.matveev.alexey.atlas.jira.jira-react-atlaskit',
+      pluginKey: 'com.jaanga.jira.todo.jira-react-atlaskit',
       locationPrefix: 'frontend/',
       contextMap: {
         app: ['app'],

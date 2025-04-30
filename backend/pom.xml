@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>backend</artifactId>
     <parent>
-        <groupId>ru.matveev.alexey.atlas.jira</groupId>
+        <groupId>com.jaanga.jira.todo</groupId>
         <artifactId>jira-react-atlaskit-archetype</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
@@ -13,7 +13,7 @@
         <url>http://www.example.com/</url>
     </organization>
     <name>jira-react-atlaskit</name>
-    <description>This is the ru.matveev.alexey.atlas.jira:jira-react-atlaskit plugin for Atlassian JIRA.</description>
+    <description>This is the com.jaanga.jira.todo:jira-react-atlaskit plugin for Atlassian JIRA.</description>
     <packaging>atlassian-plugin</packaging>
     <dependencies>
         <dependency>

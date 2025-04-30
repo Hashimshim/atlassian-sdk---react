@@ -4,7 +4,7 @@
     <artifactId>frontend</artifactId>
 
     <parent>
-        <groupId>ru.matveev.alexey.atlas.jira</groupId>
+        <groupId>com.jaanga.jira.todo</groupId>
         <artifactId>jira-react-atlaskit-archetype</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>

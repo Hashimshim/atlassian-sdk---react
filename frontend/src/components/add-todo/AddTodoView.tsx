@@ -23,7 +23,7 @@ export default function AddTodoView(props : IProps) {
   };
   return (
     <>
-      <Button onClick={onModalOpen}>Add Todo8 - changes</Button>
+      <Button onClick={onModalOpen}>Add Todo9 - changes</Button>
       <AddTodoModal
         isOpen={isModalOpen}
         closeModal={closeModal}

@@ -1,4 +1,4 @@
-package ru.matveev.alexey.atlas.jira.ao;
+package com.jaanga.jira.todo.ao;
 
 import com.atlassian.activeobjects.tx.Transactional;
 

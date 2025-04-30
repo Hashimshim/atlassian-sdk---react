@@ -18,7 +18,7 @@
     <resource type="download" name="images/" location="/images"/>  
     <context>jira-react-atlaskit</context> 
   </web-resource>  
-  <servlet name="App Servlet" i18n-name-key="app-servlet.name" key="app-servlet" class="ru.matveev.alexey.atlas.jira.servlet.AppServlet"> 
+  <servlet name="App Servlet" i18n-name-key="app-servlet.name" key="app-servlet" class="com.jaanga.jira.todo.servlet.AppServlet">
     <description key="app-servlet.description">The App Servlet Plugin</description>  
     <url-pattern>/app</url-pattern> 
   </servlet>  
@@ -33,7 +33,7 @@
   </web-item>  
   <ao key="ao-module"> 
     <description>The module configuring the Active Objects service used by this plugin</description>  
-    <entity>ru.matveev.alexey.atlas.jira.ao.Todo</entity> 
+    <entity>com.jaanga.jira.todo.ao.Todo</entity>
   </ao>  
   <rest name="Ao Rest Resource" i18n-name-key="ao-rest-resource.name" key="ao-rest-resource" path="/app" version="1.0"> 
     <description key="ao-rest-resource.description">The Ao Rest Resource Plugin</description> 

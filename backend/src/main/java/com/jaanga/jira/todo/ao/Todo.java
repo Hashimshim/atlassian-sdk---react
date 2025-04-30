@@ -1,4 +1,4 @@
-package ru.matveev.alexey.atlas.jira.ao;
+package com.jaanga.jira.todo.ao;
 
 import net.java.ao.Entity;
 import net.java.ao.schema.AutoIncrement;

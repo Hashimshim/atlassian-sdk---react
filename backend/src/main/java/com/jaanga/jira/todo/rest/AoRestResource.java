@@ -1,11 +1,6 @@
-package ru.matveev.alexey.atlas.jira.rest;
+package com.jaanga.jira.todo.rest;
 
-import com.atlassian.activeobjects.external.ActiveObjects;
-import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
-import com.atlassian.plugins.rest.common.security.AnonymousAllowed;
-import com.atlassian.sal.api.transaction.TransactionCallback;
-import ru.matveev.alexey.atlas.jira.ao.Todo;
-import ru.matveev.alexey.atlas.jira.ao.TodoService;
+import com.jaanga.jira.todo.ao.TodoService;
 
 import javax.inject.Inject;
 import javax.inject.Named;

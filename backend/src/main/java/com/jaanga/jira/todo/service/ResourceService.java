@@ -1,4 +1,4 @@
-package ru.matveev.alexey.atlas.jira.service;
+package com.jaanga.jira.todo.service;
 
 import javax.inject.Named;
 import java.io.IOException;
