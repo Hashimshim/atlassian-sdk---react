@@ -1,22 +1,32 @@
-// eslint-disable-next-line no-use-before-define
+// src/App.tsx
 import React from 'react';
-import * as ReactDOM from 'react-dom';
-import TableDataViewer from './components/TableDataViewer';
+import { render } from 'react-dom';
+import Ambassadors from './Ambassadors';
+import Logs from './Logs';
 
 interface IProps {
-  contextPath : string
+  contextPath: string;
 }
 
-export default function App(props : IProps) {
-  const { contextPath } = props;
-  return (
-    <TableDataViewer contextPath={contextPath} />
+const App: React.FC<IProps> = ({ contextPath }) => {
+  // read the “view” hidden input or fallback to query‐string
+  const el = document.getElementById('view') as HTMLInputElement;
+  const view =
+    (el && el.value) ||
+    new URLSearchParams(window.location.search).get('view') ||
+    'ambassadors';
+
+  return view === 'logs' ? (    <Logs contextPath={contextPath} />
+  ) : (
+    <Ambassadors contextPath={contextPath} />
   );
-}
+};
 
 window.addEventListener('load', () => {
-  const contextPath = (document.getElementById('contextPath') as HTMLInputElement).value;
-  const wrapper = document.getElementById('container');
-  // eslint-disable-next-line no-unused-expressions
-  wrapper ? ReactDOM.render(<App contextPath={contextPath} />, wrapper) : false;
+  const cpInput = document.getElementById('contextPath') as HTMLInputElement;
+  const contextPath = cpInput?.value || '';
+  const container = document.getElementById('container');
+  if (container) {
+    render(<App contextPath={contextPath} />, container);
+  }
 });
