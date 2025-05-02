@@ -3,6 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import Ambassadors from './Ambassadors';
 import Logs from './Logs';
+import Main from './Main';
 
 interface IProps {
   contextPath: string;
@@ -17,9 +18,10 @@ const App: React.FC<IProps> = ({ contextPath }) => {
     'ambassadors';
 
   return view === 'logs' ? (    <Logs contextPath={contextPath} />
-  ) : (
+  ) :  view === 'ambassadors' ? (
     <Ambassadors contextPath={contextPath} />
-  );
+  ) : (
+     <Main contextPath={contextPath} /> );
 };
 
 window.addEventListener('load', () => {

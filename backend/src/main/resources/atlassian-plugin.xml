@@ -29,7 +29,7 @@
             section="system.top.navigation.bar"
             weight="100">
     <label key="main.page.nav.label">Main Page</label>
-    <link linkId="main-page-nav-link">/secure/MainPage.jspa</link>
+    <link linkId="main-page-nav-link">/plugins/servlet/app?view=main</link>
   </web-item>
 
   <!-- *********** Admin Menu *************** -->
