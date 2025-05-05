@@ -1,0 +1,18 @@
+<html>
+<head>
+  <title>Main Page</title>
+  <content tag="selectedWebItem">main</content>
+  <meta name="decorator" content="atl.general"/>
+  $webResourceManager.requireResourcesForContext("app")
+</head>
+<body>
+  <!-- pass contextPath to React -->
+  <input type="hidden" id="contextPath" value="$!{contextPath}"/>
+
+  <!-- mount point -->
+  <div id="maincontainer">
+      <div id="container">
+      </div>
+  </div>
+</body>
+</html>

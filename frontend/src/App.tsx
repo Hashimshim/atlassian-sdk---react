@@ -19,7 +19,7 @@ const App: React.FC<IProps> = ({ contextPath }) => {
 
   return view === 'logs' ? (    <Logs contextPath={contextPath} />
   ) :  view === 'ambassadors' ? (
-    <Ambassadors contextPath={contextPath} />
+    <Ambassadors />
   ) : (
      <Main contextPath={contextPath} /> );
 };

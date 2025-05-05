@@ -18,6 +18,7 @@
     <resource type="download" name="images/" location="/images"/>  
     <context>jira-react-atlaskit</context> 
   </web-resource>
+
   <servlet name="App Servlet" i18n-name-key="app-servlet.name" key="app-servlet" class="ru.matveev.alexey.atlas.jira.servlet.AppServlet"> 
     <description key="app-servlet.description">The App Servlet Plugin</description>  
     <url-pattern>/app</url-pattern> 
