@@ -12,64 +12,55 @@
   <resource type="i18n" name="i18n" location="jira-react-atlaskit"/>  
   <!-- add our web resources -->  
   <web-resource key="jira-react-atlaskit-resources" name="jira-react-atlaskit Web Resources"> 
-    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <dependency>com.atlassian.auiplugin:ajs</dependency>  
     <resource type="download" name="jira-react-atlaskit.css" location="/css/jira-react-atlaskit.css"/>  
     <resource type="download" name="jira-react-atlaskit.js" location="/js/jira-react-atlaskit.js"/>  
     <resource type="download" name="images/" location="/images"/>  
     <context>jira-react-atlaskit</context> 
-  </web-resource>
-
+  </web-resource>  
   <servlet name="App Servlet" i18n-name-key="app-servlet.name" key="app-servlet" class="ru.matveev.alexey.atlas.jira.servlet.AppServlet"> 
     <description key="app-servlet.description">The App Servlet Plugin</description>  
     <url-pattern>/app</url-pattern> 
-  </servlet>
-
-  <!-- *********** Top Nav Menu *************** -->
-  <web-item key="main-page-nav-item"
-            name="Main Page Nav Item"
-            section="system.top.navigation.bar"
-            weight="100">
-    <label key="main.page.nav.label">Main Page</label>
-    <link linkId="main-page-nav-link">/plugins/servlet/app?view=main</link>
-  </web-item>
-
-  <!-- *********** Admin Menu *************** -->
-  <web-section key="cf-amb-admin-section"
-               name="cf.amb.admin.section.name"
-               i18n-name-key="cf.amb.admin.section.name"
-               location="admin_plugins_menu"
-               weight="50">
-    <description key="react.description">React Plugin</description>
-    <label key="admin.section.name"/>
-  </web-section>
-  <!-- *********** Ambassadors Section *************** -->
-  <web-item key="cf-amb-admin-ambassadors"
-            name="cf.amb.admin.ambassadors.name"
-            i18n-name-key="cf.amb.admin.ambassadors.name"
-            section="admin_plugins_menu/cf-amb-admin-section"
-            weight="10">
-    <description key="app.description">Ambassadors</description>
-    <label key="cf.amb.admin.ambassadors.name"/>
-    <link linkId="ambassadors-link">/plugins/servlet/app?view=ambassadors</link>
-  </web-item>
-  <!-- *********** Logs Section *************** -->
-  <web-item key="cf-amb-admin-logs"
-            name="cf.amb.admin.logs.name"
-            i18n-name-key="cf.amb.admin.logs.name"
-            section="admin_plugins_menu/cf-amb-admin-section"
-            weight="20">
-    <description key="app.description">Logs</description>
-    <label key="cf.amb.admin.logs.name"/>
-    <link linkId="logs-link">/plugins/servlet/app?view=logs</link>
-  </web-item>
-  <!-- *********** Active Objects *************** -->
+  </servlet>  
+  <!-- *********** Top Nav Menu *************** -->  
+  <web-item key="main-page-nav-item" name="Main Page Nav Item" section="system.top.navigation.bar" weight="100"> 
+    <label key="main.page.nav.label">Main Page</label>  
+    <link linkId="main-page-nav-link">/plugins/servlet/app?view=main</link> 
+  </web-item>  
+  <!-- *********** Admin Menu *************** -->  
+  <web-section key="cf-amb-admin-section" name="cf.amb.admin.section.name" i18n-name-key="cf.amb.admin.section.name" location="admin_plugins_menu" weight="50"> 
+    <description key="react.description">React Plugin</description>  
+    <label key="admin.section.name"/> 
+  </web-section>  
+  <!-- *********** Ambassadors Section *************** -->  
+  <web-item key="cf-amb-admin-ambassadors" name="cf.amb.admin.ambassadors.name" i18n-name-key="cf.amb.admin.ambassadors.name" section="admin_plugins_menu/cf-amb-admin-section" weight="10"> 
+    <description key="app.description">Ambassadors</description>  
+    <label key="cf.amb.admin.ambassadors.name"/>  
+    <link linkId="ambassadors-link">/plugins/servlet/app?view=ambassadors</link> 
+  </web-item>  
+  <!-- *********** Logs Section *************** -->  
+  <web-item key="cf-amb-admin-logs" name="cf.amb.admin.logs.name" i18n-name-key="cf.amb.admin.logs.name" section="admin_plugins_menu/cf-amb-admin-section" weight="20"> 
+    <description key="app.description">Logs</description>  
+    <label key="cf.amb.admin.logs.name"/>  
+    <link linkId="logs-link">/plugins/servlet/app?view=logs</link> 
+  </web-item>  
+  <!-- *********** Active Objects *************** -->  
   <ao key="ao-module"> 
     <description>The module configuring the Active Objects service used by this plugin</description>  
-    <entity>ru.matveev.alexey.atlas.jira.ao.Todo</entity>
-    <entity>ru.matveev.alexey.atlas.jira.ao.ambassador.Ambassador</entity>
-    <entity>ru.matveev.alexey.atlas.jira.ao.log.Log</entity>
+    <entity>ru.matveev.alexey.atlas.jira.ao.Todo</entity>  
+    <entity>ru.matveev.alexey.atlas.jira.ao.ambassador.Ambassador</entity>  
+    <entity>ru.matveev.alexey.atlas.jira.ao.log.Log</entity> 
   </ao>  
   <rest name="Ao Rest Resource" i18n-name-key="ao-rest-resource.name" key="ao-rest-resource" path="/app" version="1.0"> 
     <description key="ao-rest-resource.description">The Ao Rest Resource Plugin</description> 
   </rest>
+  <rest name="Users Rest Resource"  key="users-rest-resource" path="/app" version="1.0">
+    <description key="users-rest-resource.description">The Ao Rest Resource Plugin</description>
+  </rest>
+  <rest name="CustomField Rest Resource" key="custom-fields-rest" path="/app" version="1.0">
+    <description key="users-rest-resource.description">Custom fields of type option</description>
+  </rest>
+
+
+
 </atlassian-plugin>
