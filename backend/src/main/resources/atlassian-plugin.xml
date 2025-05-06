@@ -29,7 +29,7 @@
   </web-item>  
   <!-- *********** Admin Menu *************** -->  
   <web-section key="cf-amb-admin-section" name="cf.amb.admin.section.name" i18n-name-key="cf.amb.admin.section.name" location="admin_plugins_menu" weight="50"> 
-    <description key="react.description">React Plugin</description>  
+    <description key="app.description">CFA Plugin</description>
     <label key="admin.section.name"/> 
   </web-section>  
   <!-- *********** Ambassadors Section *************** -->  
@@ -54,13 +54,10 @@
   <rest name="Ao Rest Resource" i18n-name-key="ao-rest-resource.name" key="ao-rest-resource" path="/app" version="1.0"> 
     <description key="ao-rest-resource.description">The Ao Rest Resource Plugin</description> 
   </rest>
-  <rest name="Users Rest Resource"  key="users-rest-resource" path="/app" version="1.0">
+  <rest name="Users Rest Resource" i18n-name-key="users-rest-resource.name" key="users-rest-resource" path="/app" version="1.0">
     <description key="users-rest-resource.description">The Ao Rest Resource Plugin</description>
   </rest>
-  <rest name="CustomField Rest Resource" key="custom-fields-rest" path="/app" version="1.0">
-    <description key="users-rest-resource.description">Custom fields of type option</description>
+  <rest name="CustomField Rest Resource" i18n-name-key="customfield-rest-resource.name" key="custom-fields-rest" path="/app" version="1.0">
+    <description key="customfield-rest-resource.description">Custom fields of type option</description>
   </rest>
-
-
-
 </atlassian-plugin>

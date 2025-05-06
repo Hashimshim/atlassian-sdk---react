@@ -1,12 +1,11 @@
 package ru.matveev.alexey.atlas.jira.ao.ambassador;
 
-import ru.matveev.alexey.atlas.jira.ao.BaseEntity;
 import net.java.ao.Entity;
 import net.java.ao.schema.AutoIncrement;
 import net.java.ao.schema.NotNull;
 import net.java.ao.schema.PrimaryKey;
 
-public interface Ambassador extends BaseEntity {
+public interface Ambassador extends Entity {
 
     @AutoIncrement
     @NotNull

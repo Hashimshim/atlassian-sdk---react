@@ -1,12 +1,11 @@
 package ru.matveev.alexey.atlas.jira.ao.log;
 
-import ru.matveev.alexey.atlas.jira.ao.BaseEntity;
 import net.java.ao.Entity;
 import net.java.ao.schema.AutoIncrement;
 import net.java.ao.schema.NotNull;
 import net.java.ao.schema.PrimaryKey;
 
-public interface Log extends BaseEntity {
+public interface Log extends Entity {
     @AutoIncrement
     @PrimaryKey("ID")
     public int getID();

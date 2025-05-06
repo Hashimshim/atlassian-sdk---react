@@ -4,7 +4,12 @@ import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.jira.issue.CustomFieldManager;
 import com.atlassian.jira.issue.fields.CustomField;
 import com.atlassian.jira.issue.fields.config.FieldConfig;
+import com.atlassian.jira.issue.fields.config.FieldConfigScheme;
+import com.atlassian.jira.issue.customfields.CustomFieldType;
+
+
 import com.atlassian.jira.issue.customfields.manager.OptionsManager;
+import com.atlassian.jira.issue.customfields.option.Options;
 import com.atlassian.jira.issue.customfields.option.Option;
 
 import javax.inject.Inject;
@@ -64,7 +69,7 @@ public class CustomFieldsRestResource {
      * Returns only the "option-type" custom fields (descriptor ends with ":select").
      */
     @GET
-    @Path("/options")
+    @Path("/filtered")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOptionCustomFields() {
         List<CustomField> all = customFieldManager.getCustomFieldObjects();
@@ -85,44 +90,122 @@ public class CustomFieldsRestResource {
         return Response.ok(optionFields).build();
     }
 
+
+
     /**
-     * GET /rest/.../customfields/{fieldId}/values
-     * Returns all option values for the given select-type custom field.
+     * GET /rest/.../customfields/{fieldId}/contexts
+     * Returns all configuration schemes (contexts) for a given custom field,
+     * including each scheme’s configs (id, name, description, defaultValue).
      */
     @GET
-    @Path("/{fieldId}/values")
+    @Path("/{fieldId}/contexts")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getCustomFieldValues(@PathParam("fieldId") String fieldId) {
+    public Response getCustomFieldContexts(@PathParam("fieldId") String fieldId) {
+        // 1. Lookup the custom field by ID
         CustomField cf = customFieldManager.getCustomFieldObject(fieldId);
         if (cf == null) {
-            Map<String, String> err = new HashMap<>();
-            err.put("error", "CustomField not found");
             return Response.status(Response.Status.NOT_FOUND)
-                    .entity(err)
+                    .entity("Custom field not found: " + fieldId)
                     .build();
         }
 
-        FieldConfig config = cf.getRelevantConfig(null);
-        if (config == null) {
-            Map<String, String> err = new HashMap<>();
-            err.put("error", "No configuration for field");
-            return Response.status(Response.Status.BAD_REQUEST)
-                    .entity(err)
+        // 2. Retrieve all configuration schemes (contexts)
+        List<FieldConfigScheme> schemes = cf.getConfigurationSchemes();  // :contentReference[oaicite:0]{index=0}
+
+        // 3. Build the response
+        List<Map<String, Object>> result = schemes.stream().map(scheme -> {
+            Map<String, Object> schemeMap = new HashMap<>();
+            schemeMap.put("schemeId", scheme.getId());
+            schemeMap.put("name", scheme.getName());
+            schemeMap.put("description", scheme.getDescription());
+            schemeMap.put("isGlobal", scheme.isGlobal());
+            schemeMap.put("isAllProjects", scheme.isAllProjects());
+            schemeMap.put("associatedProjectIds", scheme.getAssociatedProjectIds());
+            schemeMap.put("associatedIssueTypeIds", scheme.getAssociatedIssueTypeIds());
+
+            // 4. For each scheme, include its individual FieldConfig entries
+            List<Map<String, Object>> configs = scheme.getConfigs()
+                    .values()                         // Collection<FieldConfig>
+                    .stream()
+                    .map(config -> {
+                        Map<String, Object> cfgMap = new HashMap<>();
+                        // Basic config metadata:
+                        cfgMap.put("configId",     config.getId());
+                        cfgMap.put("name",         config.getName());
+                        cfgMap.put("description",  config.getDescription());
+
+                        // Fetch default via the CustomFieldType API:
+                        CustomFieldType<?,?> type = (CustomFieldType<?,?>) cf.getCustomFieldType();
+                        Object defaultVal = type.getDefaultValue(config);
+                        cfgMap.put("defaultValue", defaultVal);
+
+                        return cfgMap;
+                    })
+                    .collect(Collectors.<Map<String,Object>>toList());
+
+
+            schemeMap.put("configs", configs);
+            return schemeMap;
+        }).collect(Collectors.toList());
+
+        // 5. Return JSON
+        return Response.ok(result).build();
+    }
+
+    /**
+     * GET /rest/.../customfields/{fieldId}/contexts/{contextId}/options
+     * Returns every select-type option for that field in the given context.
+     */
+    @GET
+    @Path("/{fieldId}/contexts/{contextId}/options")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCustomFieldContextOptions(
+            @PathParam("fieldId") String fieldId,
+            @PathParam("contextId") Long   contextId) {
+
+        // 1. Load field
+        CustomField cf = customFieldManager.getCustomFieldObject(fieldId);
+        if (cf == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Field not found: " + fieldId)
                     .build();
         }
 
-        List<Map<String, Object>> values = optionsManager
-                .getOptions(config)
-                .getRootOptions()
+        // 2. Find the matching context (FieldConfigScheme)
+        FieldConfigScheme matchingScheme = cf.getConfigurationSchemes().stream()
+                .filter(scheme -> scheme.getId().equals(contextId))
+                .findFirst()
+                .orElse(null);
+
+        if (matchingScheme == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Context not found: " + contextId)
+                    .build();
+        }
+
+        // 3. For each FieldConfig in that scheme, fetch its Options
+        List<Map<String,Object>> contextOptions = matchingScheme.getConfigs()
+                .values()                                         // Collection<FieldConfig>
                 .stream()
+                .flatMap(fieldConfig -> {
+                    Options opts = optionsManager.getOptions(fieldConfig);
+                    // OptionsManager.getOptions(FieldConfig) returns all select-type options :contentReference[oaicite:0]{index=0}
+                    return opts.getRootOptions().stream();
+                })
                 .map(opt -> {
-                    Map<String, Object> m = new HashMap<>();
-                    m.put("id", opt.getOptionId());
-                    m.put("value", opt.getValue());
-                    return m;
+                    Map<String,Object> o = new HashMap<>();
+                    o.put("optionId",    opt.getOptionId());
+                    o.put("value",       opt.getValue());
+                    o.put("parentId",    opt.getParentOption() != null
+                            ? opt.getParentOption().getOptionId()
+                            : null);
+                    o.put("sequence",    opt.getSequence());
+                    return o;
                 })
                 .collect(Collectors.toList());
 
-        return Response.ok(values).build();
+        // 4. Return as JSON
+        return Response.ok(contextOptions).build();
     }
+
 }
