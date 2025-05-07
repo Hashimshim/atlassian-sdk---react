@@ -10,7 +10,7 @@ import Modal, {
 import Select, { ValueType } from '@atlaskit/select';
 import Button from '@atlaskit/button';
 
-type User        = { id: string; displayName: string };
+type User        = { key: string; displayName: string };
 type CustomField = { id: string; name: string };
 type Context     = { schemeId: number; name: string };
 type Option      = { value: string | number; label: string };
@@ -129,7 +129,7 @@ const CreateAmbassadorModal: React.FC<CreateAmbassadorModalProps> = ({
           <label htmlFor="user-select"><strong>User</strong></label>
           <Select<Option, false>
             inputId="user-select"
-            options={users.map(u => ({ value: u.id, label: u.displayName }))}
+            options={users.map(u => ({ value: u.key, label: u.displayName }))}
             placeholder="Select a user…"
             onChange={(opt: Option | null) => setSelectedUser(opt)}
             value={selectedUser}
