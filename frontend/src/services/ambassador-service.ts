@@ -111,15 +111,75 @@ export const getAllAmbassadors = async (
   );
 };
 
-export const getAmbassadorById = async (
-  id: string,
+export const getAmbassadorsByUser = async (
+  accountId: string,
   contextPath: string
-): Promise<IAmbassador> =>
-  (await fetch(`${BASE(contextPath)}/${id}`, {
-    method: 'GET',
-    credentials: 'same-origin',
-    headers: { Accept: 'application/json' },
-  })).json();
+): Promise<IAmbassador[]> => {
+  // 1) Fetch all raw ambassadors
+  const rawAmbs: IAmbassador[] = await fetch(
+    BASE(contextPath),
+    {
+      method: 'GET',
+      credentials: 'same-origin',
+      headers: { Accept: 'application/json' },
+    }
+  ).then((r) => r.json());
+
+  // 2) Keep only this user's ambassadors
+  const userRaw = rawAmbs.filter((a) => a.accountId === accountId);
+  if (userRaw.length === 0) {
+    return [];
+  }
+
+  // 3) Fetch & filter custom fields
+  const allFields = await getAllCustomFields(contextPath);
+  const customFields = allFields.filter((f) => f.custom);
+
+  // 4) Unique customFieldIds for this user
+  const uniqueFieldIds = Array.from(
+    new Set(userRaw.map((a) => a.customFieldId))
+  );
+
+  // 5) Fetch contexts per field in parallel
+  const contextsMapping: Record<string, IContext[]> = {};
+  await Promise.all(
+    uniqueFieldIds.map(async (fieldId) => {
+      contextsMapping[fieldId] = await getCustomFieldContexts(
+        fieldId,
+        contextPath
+      );
+    })
+  );
+  // Flatten all contexts for easy lookup
+  const allContexts = Object.values(contextsMapping).flat();
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // NEW: 6) Fetch this user's info only ONCE
+  // ─────────────────────────────────────────────────────────────────────────────
+  const user = await getUserInfo(accountId, contextPath);
+  // user.displayName and user.avatarUrl are now available
+
+  // 7) Enrich each ambassador
+  return userRaw.map((a) => {
+    const fieldDef = customFields.find((f) => f.id === a.customFieldId);
+    const ctxDef = allContexts.find(
+      (c) =>
+        c.schemeId.toString() === a.contextId ||
+        c.configs.some((cfg) => cfg.configId.toString() === a.contextId)
+    );
+
+    return {
+      ...a,
+      customFieldName: fieldDef?.name || a.customFieldId,
+      contextName: ctxDef?.name || a.contextId,
+      contextDescription: ctxDef?.description || '',
+      // reusing the single `user` object
+      userDisplayName: user.displayName,
+      userAvatarUrl: user.avatarUrl,
+    };
+  });
+};
+
 
 export const addAmbassador = async (
   amb: IAmbassador,

@@ -24,4 +24,11 @@ public interface AmbassadorService {
      * Find ambassadors by contextId.
      */
     List<Ambassador> findByContext(String contextId);
+
+    /**
+     * Find an ambassador by its ID.
+     * @param id the record ID
+     * @return the Ambassador, or null if not found
+     */
+    List<Ambassador> findByAmbassadorById(String accountId);
 }

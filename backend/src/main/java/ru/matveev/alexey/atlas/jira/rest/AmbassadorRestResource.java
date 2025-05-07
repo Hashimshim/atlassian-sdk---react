@@ -1,6 +1,8 @@
 package ru.matveev.alexey.atlas.jira.rest.ambassador;
 
 import ru.matveev.alexey.atlas.jira.ao.ambassador.AmbassadorService;
+import ru.matveev.alexey.atlas.jira.ao.ambassador.Ambassador;
+
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -108,4 +110,34 @@ public class AmbassadorRestResource {
                 .collect(Collectors.toList());
         return Response.ok(list).build();
     }
+
+    /**
+     * GET /ambassador/account/{accountId}
+     * Retourne tous les Ambassador pour ce accountId.
+     */
+    @GET
+    @Path("/{accountId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getByAccountId(@PathParam("accountId") String accountId) {
+        List<AmbassadorRestResourceModel> list = ambassadorService
+                .findByAmbassadorById(accountId)
+                .stream()
+                .map(a -> new AmbassadorRestResourceModel(
+                        a.getID(),
+                        a.getAccountId(),
+                        a.getCustomFieldId(),
+                        a.getContextId(),
+                        a.getCreatedAt()
+                ))
+                .collect(Collectors.toList());
+
+        if (list.isEmpty()) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(new AmbassadorRestResourceModel("not found"))
+                    .build();
+        }
+
+        return Response.ok(list).build();
+    }
+
 }

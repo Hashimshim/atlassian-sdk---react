@@ -89,4 +89,14 @@ public class AmbassadorServiceImpl implements AmbassadorService {
             return new ArrayList<>();
         }
     }
+
+    @Override
+    public List<Ambassador> findByAmbassadorById(String accountId) {
+        return newArrayList(
+                ao.find(
+                        Ambassador.class,
+                        Query.select().where("ACCOUNT_ID = ?", accountId)
+                )
+        );
+    }
 }
